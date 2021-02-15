@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Block Explorer</title>
+	<link rel="shortcut icon" href="#">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+	
+</head>
+<body ng-app="Block_explorer">
+	<style>
+		.nav
+		{
+			margin-left: auto;
+			
+		}
+	</style>
+	
+	<nav class="navbar navbar-expand-sm bg-dark"> 
+		
+			<img src="nmam" class="top">
+			<div id="myDIV" class="">
+        <ul class="nav nav-tabs card-header-tabs"> 
+            <li class="nav-item"> 
+				<a class="nav-link active" href="Block_explorer"> 
+                  Home
+                </a> 
+            </li> 
+            <li class="nav-item"> 
+                <a class="nav-link" href="home"> 
+                  Asset Manager
+                </a> 
+            </li> 
+            <li class="nav-item"> 
+                <a class="nav-link" href="about"> 
+                  About Us
+                </a> 
+            </li> 
+        </ul> 
+	</nav> 
+	<br>
+	<div class="row justify-content-md-center"><img src="block"> </div>
+	<h1 class="bold"><u>TRACK YOUR ASSETS</u></h1>
+
+	<div class="container-fluid" ng-controller="MainController">
+		<img src="" style="width:100%;">
+	
+		<centre>
+		<div class="text-box">
+			<div class="row justify-content-md-center">
+				
+				<div class="col col-lg-4"><form ng-submit="fetchLastBlock()">
+					<div class="card bg-dark">
+						<div class="card-body text-center">
+						  <p class="card-text"><h3>Latest Block</h3><button
+							type="submit"
+							class="btn btn-primary margin-auto btn-search">
+								Display 
+						</button></p>
+						</div>
+					  </div>
+				</form></div> <br><br><br> 
+				<div class="col-md-auto">
+				
+					<table class="table table-striped" ng-if="last">
+						<tbody>
+							<tr>	
+								<td class="bold">Block Hash</td>
+								<td>{{ last.hash }}</td>
+							</tr>
+							<tr>	
+								<td class="bold">Index</td>
+								<td>{{ last.index }}</td>
+							</tr>
+							<tr>	
+								<td class="bold">Time Stamp</td>
+								<td>{{ last.timestamp }}</td>
+							</tr>
+							<tr>	
+								<td class="bold">Nonce</td>
+								<td>{{ last.nonce }}</td>
+							</tr>
+							<tr>	
+								<td class="bold">Previous Hash</td>
+								<td>{{ last.prevBlockHash }}</td>
+							</tr>
+							<tr>	
+								<td class="bold">Number of Transfers</td>
+								<td>{{ last.transactions.length }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+		
+				
+	  <br>
+	<div class="w-60 d-none d-md-block"></div>
+	
+	<div class="col col-lg-4">
+		<form ng-submit="fetchAsset()">
+			<div class="card bg-dark">
+				<div class="card-body text-center">
+				  <p class="card-text"><h3>Latest Asset Transfer Details</h3><button
+					type="submit"
+					class="btn btn-primary margin-auto btn-search">
+						Display 
+				</button></p>
+				</div>
+			  </div>
+		</form>
+	</div>
+	  <div class="col-lg-6">
+		
+				<table class="table table-striped" ng-if="asset">
+					<tbody>
+						<tr>	
+							<td class="bold">Asset</td>
+							<td>{{ asset.asset }}</td>
+						</tr>
+						<tr>	
+							<td class="bold">From Department</td>
+							<td>{{ asset.fromDepartment}}</td>
+						</tr>
+						<tr>	
+							<td class="bold">To Department</td>
+							<td>{{ asset.toDepartment}}</td>
+						</tr>
+						<tr>	
+							<td class="bold">Quantity</td>
+							<td>{{ asset.quantity }}</td>
+						</tr>
+						
+					</tbody>
+				</table>
+		</div>
+	</div>		
+</centre>	
+
+
+
+<h4 class="bold">Search blocks by its Hash</h4>
+	<br>
+<div class="row justify-content-md-center">		
+	<div class="col-lg-3"></div><div class="col-lg-6">
+		<form ng-submit="search(searchValue)">
+			<div class="form-group">
+				<input type="text" class="form-control" ng-model="searchValue">
+			</div>
+			<div class="form-group">
+				<select class="form-control" ng-model="searchType">
+					<option value="block">Block Hash</option>
+					<option value="index">Block Index</option>
+					<option value="transaction">Transaction ID</option>
+				</select>
+			</div>
+			<button
+				type="submit"
+				class="btn btn-primary margin-auto btn-search">
+					Search
+			</button>
+			<p ng-if="!block && !transaction && !index && initialSearchMade" class="no-data-text">
+				No data found for search.
+			</p></form> 
+	</div><div class="col-lg-3"></div>
+	<div class="col-lg-6">
+		<table class="table table-striped" ng-if="block">
+			<tbody>
+				<tr>	
+					<td class="bold">Block Hash</td>
+					<td>{{ block.hash }}</td>
+				</tr>
+				<tr>	
+					<td class="bold">Index</td>
+					<td>{{ block.index }}</td>
+				</tr>
+				<tr>	
+					<td class="bold">Time Stamp</td>
+					<td>{{ block.timestamp }}</td>
+				</tr>
+				<tr>	
+					<td class="bold">Nonce</td>
+					<td>{{ block.nonce }}</td>
+				</tr>
+				<tr>	
+					<td class="bold">Previous Hash</td>
+					<td>{{ block.prevBlockHash }}</td>
+				</tr>
+				<tr>	
+					<td class="bold">Number Transactions</td>
+					<td>{{ block.transactions.length }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+	<script>
+		window.app = angular.module('Block_explorer', []);
+		app.controller('MainController', function($scope, $http) {
+			$scope.block = null;
+			$scope.index = null;
+			$scope.transaction = null;
+			$scope.initialSearchMade = false;
+			$scope.blockCount = function() {
+				$http.get('/blockCount')
+				.then(response => {
+					$scope.count = response.data.count;
+				});
+			};
+			$scope.fetchBlock1 = function() {
+				$http.get('/block1')
+				.then(response => {
+					$scope.block = response.data.block;
+				});
+			};
+			$scope.fetchBlock2 = function() {
+				$http.get('/block2')
+				.then(response => {
+					$scope.block = response.data.block;
+				});
+			};$scope.fetchBlock3 = function() {
+				$http.get('/block3')
+				.then(response => {
+					$scope.block = response.data.block;
+				});
+			};$scope.fetchBlock4 = function() {
+				$http.get('/block4')
+				.then(response => {
+					$scope.block = response.data.block;
+				});
+			};
+			$scope.fetchChain = function() {
+				$http.get('/chain')
+				.then(response => {
+					$scope.block = response.data.block;
+				});
+			};
+			$scope.fetchLastBlock = function() {
+				$http.get('/last')
+				.then(response => {
+					$scope.last = response.data.last;
+				});
+			};
+
+
+			$scope.fetchBlock = function(blockHash) {
+				$http.get(`/block/${blockHash}`)
+				.then(response => {
+					$scope.block = response.data.block;
+					$scope.index = null;
+					$scope.transaction = null;
+				});
+			};
+			$scope.fetchIndex = function(blockIndex) {
+				$http.get(`/index/${blockIndex}`)
+				.then(response => {
+					$scope.index = response.data.index;
+				});
+			};
+			$scope.fetchTransaction = function() {
+				$http.get('/transaction')
+				.then(response => {
+					$scope.transaction = response.data.transaction;
+				});				
+			};
+			$scope.fetchAsset = function() {
+				$http.get('/asset')
+				.then(response => {
+					$scope.asset = response.data.asset;
+				});				
+			};
+
+			
+			$scope.fetchTransaction = function(transactionId) {
+				$http.get(`/transaction/${transactionId}`)
+				.then(response => {
+					$scope.transaction = response.data.transaction;
+					$scope.block = null;
+					$scope.index = null;
+				});				
+			};
+
+			$scope.search = function(searchValue) {
+				$scope.initialSearchMade = true;
+				if ($scope.searchType === 'block') {
+					$scope.fetchBlock(searchValue);
+					alert('block search')
+				}
+				else if ($scope.searchType === 'index')
+				{
+					$scope.fetchIndex(searchValue);
+					alert('index search')
+				}
+				else if ($scope.searchType === 'transaction') {
+					$scope.fetchTransaction(searchValue);
+					alert('transaction search')
+				}
+			};
+		});
+	</script>
+	<style type="text/css">
+	
+		html, body {
+			min-height: 100vh;
+			background-color: #ebebe3;
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: 20000%;
+			background-image: url('bg');
+			background-clip: padding-box;
+			font-family: 'Poppins', sans-serif;
+			
+		}
+
+		container {
+			padding-top: 50px;
+			padding-bottom: 50px;
+		}
+		#page-title {
+			text-align: center;
+			margin-bottom: 40px;
+		}
+		.table-title {
+			margin-bottom: 20px;
+			text-align: center;
+		}
+		.table {
+			background-color: #ffffff;
+			box-shadow: 2px 2px 15px -3px rgba(0,0,0,0.75);
+			margin-top: 90px;
+		}
+		#balance-text {
+			text-align: center;
+			margin-top: -20px;
+			margin-bottom: 30px;
+		}
+		margin-auto {
+			margin: auto;
+			display: block;
+		}
+		.btn-search {
+			margin-bottom: 50px;
+		}
+		.bold {
+			font-weight: 700;
+		}
+		.no-data-text {
+			color: red;
+			text-align: center;
+		}
+		.nav-item > a{
+			color: #ebebe3;
+		}
+		.nav-item > a:hover{
+			color: #d8d874;
+		}
+		.nav-item> a:active{
+			color: #d8d874;
+			
+		}
+		.card{
+			margin: 100px auto;
+		}
+		.card text
+		{
+			padding: 0px;
+			margin: 0 auto;
+		}
+		img
+		{
+			padding: 0%;
+			size: 1%;
+		}
+		.top
+		{
+			padding: 0% 57rem 0% 0%;
+			size: 1%;
+		}
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.text-block {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.row {
+  margin-left: 0;
+  margin-right: 0;
+}
+table{
+	width: 20%;
+}
+h4{
+color: #292b2c;
+text-align: center;
+}
+h3
+{
+	color: #ebebe3;
+}
+.form-group {
+  padding: 1px;
+  background-color: #292929;
+}
+h1
+{
+	text-align: center;
+}
+@media screen and (max-width: 1200px){
+	img{
+		display: none;
+	}
+	.top{
+		padding: 0%;
+		size: 1%;
+	}
+}
+@media screen and (max-width:978 px){
+	img{
+		display: none;
+	}
+	.top{
+		padding: 0% 37rem 0% 0%;
+		size: 1%;
+	}
+	
+@media screen and (max-width: 900px){
+table{
+	width: 10px;
+}
+
+}
+}
+</style>
+</body>
+</html>

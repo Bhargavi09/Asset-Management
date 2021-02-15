@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Block Explorer</title>
+	<link rel="shortcut icon" href="#">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+	
+</head>
+<body ng-app="assetManager" style="background-image:url('bg')">
+	<nav class="navbar navbar-expand-sm bg-dark"> 
+		
+        <img src="nmam" class="top">
+        <div id="myDIV" class="">
+    <ul class="nav nav-tabs card-header-tabs"> 
+        <li class="nav-item"> 
+            <a class="nav-link " href="Block_explorer"> 
+              Home
+            </a> 
+        </li> 
+        <li class="nav-item"> 
+            <a class="nav-link" href="home"> 
+              Asset Manager
+            </a> 
+        </li> 
+        <li class="nav-item"> 
+            <a class="nav-link active" href="#"> 
+              About Us
+            </a> 
+        </li> 
+    </ul> 
+</nav> 
+
+    <style type="text/css">
+	
+		html, body {
+			min-height: 100vh;
+			background-color: #ebebe3;
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: 20000%;
+			background-image: url('bg');
+			background-clip: padding-box;
+            font-family: 'Poppins', sans-serif;
+			
+		}
+
+		container {
+			padding-top: 50px;
+			padding-bottom: 50px;
+		}
+		#page-title {
+			text-align: center;
+			margin-bottom: 40px;
+		}
+		.table-title {
+			margin-bottom: 20px;
+			text-align: center;
+		}
+		.table {
+			background-color: #ffffff;
+			box-shadow: 2px 2px 15px -3px rgba(0,0,0,0.75);
+			margin-top: 90px;
+		}
+		#balance-text {
+			text-align: center;
+			margin-top: -20px;
+			margin-bottom: 30px;
+		}
+		margin-auto {
+			margin: auto;
+			display: block;
+		}
+		.btn-search {
+			margin-bottom: 50px;
+		}
+		.bold {
+			font-weight: 700;
+		}
+		.no-data-text {
+			color: red;
+			text-align: center;
+		}
+		.nav-item > a{
+			color: #ebebe3;
+		}
+		.nav-item > a:hover{
+			color: #d8d874;
+		}
+		.nav-item> a:active{
+			color: #d8d874;
+			
+		}
+		.card{
+			margin: 100px auto;
+			
+			
+		}
+		.card text
+		{
+			padding: 0px;
+			margin: 0 auto;
+		}
+		img
+		{
+			padding: 0%;
+			size: 10%;
+			
+		}
+		.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.top
+		{
+			padding: 0% 57rem 0% 0%;
+			size: 1%;
+		}
+.bg_img
+{
+    pointer-events: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+.text-block {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+
+  color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.row {
+  margin-left: 0;
+  margin-right: 0;
+}
+table{
+	width: 20%;
+}
+h1
+{
+    text-align: center;
+}
+h3{
+color: #ebebe3;
+}
+
+		
+	@media screen and (max-width: 900px){
+
+	img{
+		width: 180px;
+        display: none;
+	}
+}
+.bg{
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+</style>
+</body>
+</html>
