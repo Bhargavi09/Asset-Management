@@ -8,7 +8,7 @@ function Blockchain() //PARENT CONSTRUCTOR
     this.networkNodes = []; //LIST OF NODES IN THE NETWORK LIST
     this.currentNodeUrl = currentNodeUrl;
     this.createNewBlock('0', 0 , '0'); //call create block function and make genesis
-    
+    //this.createTransaction('printer','cse' , 'ise', 10);
 }
 //CREATES A NEW BLOCK AND ADDS IT TO THE EXISTING BLOCK
 Blockchain.prototype.createNewBlock = function(hashOfTheBlock, nonceOfTheBlock,prevBlockHash)
@@ -34,16 +34,19 @@ Blockchain.prototype.getLastBlock = function()
     return lastBlock;
 }
 //CREATE A TRANSACTION AND ADD IT INTO THE PENDING TRANSACTION
-
+var count=0;
 Blockchain.prototype.createTransaction= function(asset, toDepartment, fromDepartment, quantity)
-{
+{   count++
     var newTransaction =
 {
-    assetId: this.chain.length+1,
+    //assetId: this.chain.length+1,
     asset: asset,
     toDepartment : toDepartment,
     fromDepartment: fromDepartment,
     quantity: quantity,
+    assstId : 1,
+    
+
 };
 this.pendingTransactions.push(newTransaction);
 return newTransaction;
@@ -198,6 +201,28 @@ Blockchain.prototype.getTransactio = function(transactionId) {
 		block: correctBlock
     };
 }
+
+
+Blockchain.prototype.getAssetBlock = function(date) {
+	let correctTransfer = null;
+	
+	this.chain.forEach(block => {
+		block.transactions.forEach(transaction => {
+            if (transaction.timestamp === date) 
+            {
+				correctTransfer = transaction;
+				
+			};
+		});
+	});
+
+	return correctTransfer;
+}
+
+
+
+
+
 Blockchain.prototype.getTransaction = function() {
 	/*var lastBlock=this.chain[this.chain.length-1] ;
     console.log(lastBlock.transaction);*/

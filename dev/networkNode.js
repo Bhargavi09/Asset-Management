@@ -300,6 +300,7 @@ cryptoNetworkApp.get('/asset', function(req,res)
     const correctAsset= cryptoChain.getAssetTransfer(); //call the getblock func in blockchain.js
     res.json({
         asset: correctAsset
+       
     });
 });
 // get transaction by transactionId
@@ -311,6 +312,14 @@ cryptoNetworkApp.get('/asset', function(req,res)
 		block: trasactionData.block
 	});
 }); */
+cryptoNetworkApp.get('/getSubBlockByDate/:date', function(req,res)
+{
+    const date=req.params.date;
+    const info = cryptoChain.getAssetBlock(date);
+    res.json({
+        byDate:info
+    })
+})
 cryptoNetworkApp.get('/transaction', function(req, res) {
 	const trasactionData = cryptoChain.getTransaction();
 	res.json({

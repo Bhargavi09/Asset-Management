@@ -13,13 +13,13 @@
 	
 </head>
 <body ng-app="assetManager" style="background-image:url('bg')">
-	<nav class="navbar navbar-expand-sm bg-dark"> 
+    <nav class="navbar navbar-expand-md bg-dark"> 
 		
-        <img src="nmam" class="top">
-        <div id="myDIV" class="">
+			
+        <div id="myDIV" class="bar">
     <ul class="nav nav-tabs card-header-tabs"> 
         <li class="nav-item"> 
-            <a class="nav-link " href="Block_explorer"> 
+            <a class="nav-link" href="Block_explorer"> 
               Home
             </a> 
         </li> 
@@ -33,7 +33,8 @@
               About Us
             </a> 
         </li> 
-    </ul> 
+    </ul> </div>
+    <img src="nmam" class="top">
 </nav> 
 <br><br><br>
 <div class="row justify-content-md-center"><img src="manage"> </div>
@@ -84,13 +85,15 @@
                 $scope.quantity = null;
                 $scope.postdata = function(assetName, toDepartment, fromDepartment, quantity)
                 {
-                    alert('called');
+                    
                     var data = 
                     {
                         asset:assetName,
                         toDepartment:toDepartment,
                         fromDepartment: fromDepartment,
-                        quantity: quantity
+                        quantity: quantity,
+                        timestamp: new Date().toJSON().slice(0,10),
+                        assetId: Math.floor(Math.random() * 100)
                     };
                     $http.post('/transaction-broadcast', JSON.stringify(data))
                     .then(function (response) {
@@ -199,7 +202,7 @@
 }
 .top
 		{
-			padding: 0% 57rem 0% 0%;
+			padding: 0% 0% 0% 50%;
 			size: 1%;
 		}
 .bg_img
@@ -250,7 +253,7 @@ color: #ebebe3;
     tbody
     {
         width: 80px;
-        
+
     }
 }
 .bg{
